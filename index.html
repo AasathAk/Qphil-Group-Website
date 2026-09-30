@@ -1246,17 +1246,23 @@
         </div>
 
         <div class="contact-form-wrapper reveal-right">
-          <form class="contact-form" id="contactForm">
+          <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+            <!-- Web3Forms Configuration -->
+            <input type="hidden" name="access_key" value="c186240e-a2e9-4671-9dd3-ac78b67e10af">
+            <input type="hidden" name="subject" value="New Manpower Enquiry - QPHIL Website">
+            <input type="hidden" name="from_name" value="QPHIL Group Recruitment Solutions">
+            <input type="checkbox" name="botcheck" class="hidden" style="display:none">
+
             <h3>Send Us a Message</h3>
             <p class="form-subtitle">We'll get back to you as soon as possible.</p>
             <div class="form-row">
               <div class="form-group">
                 <label for="firstName">First Name</label>
-                <input type="text" id="firstName" name="firstName" placeholder="Your first name" required>
+                <input type="text" id="firstName" name="first_name" placeholder="Your first name" required>
               </div>
               <div class="form-group">
                 <label for="lastName">Last Name</label>
-                <input type="text" id="lastName" name="lastName" placeholder="Your last name" required>
+                <input type="text" id="lastName" name="last_name" placeholder="Your last name" required>
               </div>
             </div>
             <div class="form-group">
@@ -1271,17 +1277,17 @@
               <label for="service">Service Interest</label>
               <select id="service" name="service">
                 <option value="">Select a service</option>
-                <option value="overseas">Overseas Recruitment</option>
-                <option value="manpower">Manpower Supply</option>
-                <option value="rpo">Recruitment Process Outsourcing</option>
-                <option value="mobilization">Workforce Mobilization</option>
-                <option value="custom">Client-Specific Recruitment</option>
-                <option value="other">Other</option>
+                <option value="Overseas Recruitment">Overseas Recruitment</option>
+                <option value="Manpower Supply">Manpower Supply</option>
+                <option value="Recruitment Process Outsourcing">Recruitment Process Outsourcing</option>
+                <option value="Workforce Mobilization">Workforce Mobilization</option>
+                <option value="Client-Specific Recruitment">Client-Specific Recruitment</option>
+                <option value="Other">Other</option>
               </select>
             </div>
             <div class="form-group">
               <label for="message">Message</label>
-              <textarea id="message" name="message" placeholder="Tell us about your requirements..." rows="4"></textarea>
+              <textarea id="message" name="message" placeholder="Tell us about your requirements..." rows="4" required></textarea>
             </div>
             <button type="submit" class="btn-submit">
               Send Message

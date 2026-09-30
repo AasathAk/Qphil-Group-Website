@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ─── GLOBAL SOURCING CORRIDORS MAP ───────────────────
   // Dedicated high-resolution Corridors Map is now active.
 
-  // ─── CONTACT FORM ──────────────────────────────────────
+  // ─── CONTACT FORM (WEB3FORMS AJAX SUBMIT) ──────────────
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
@@ -290,22 +290,41 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       btn.disabled = true;
 
-      setTimeout(() => {
-        btn.innerHTML = `
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-          Inquiry Submitted Successfully
-        `;
-        btn.style.background = '#10B981';
-        btn.style.color = '#fff';
+      const formData = new FormData(contactForm);
 
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      })
+      .then(async (response) => {
+        const result = await response.json();
+        if (response.status === 200 && result.success) {
+          btn.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Message Sent Successfully!
+          `;
+          btn.style.background = '#10B981';
+          btn.style.color = '#fff';
+          contactForm.reset();
+        } else {
+          btn.innerHTML = result.message || 'Error Sending Message';
+          btn.style.background = '#EF4444';
+          btn.style.color = '#fff';
+        }
+      })
+      .catch((err) => {
+        btn.innerHTML = 'Network Error. Please try again.';
+        btn.style.background = '#EF4444';
+        btn.style.color = '#fff';
+      })
+      .finally(() => {
         setTimeout(() => {
           btn.innerHTML = originalText;
           btn.disabled = false;
           btn.style.background = '';
           btn.style.color = '';
-          contactForm.reset();
-        }, 3000);
-      }, 1500);
+        }, 5000);
+      });
     });
   }
 
